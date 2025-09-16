@@ -1,0 +1,28 @@
+namespace DIPTask
+{
+    public class CreditCardProcessor
+    {
+        public void Pay(decimal amount)
+        {
+            Console.WriteLine($"Processing credit card payment: {amount}");
+        }
+    }
+
+    public class PayPalProcessor
+    {
+        public void Pay(decimal amount)
+        {
+            Console.WriteLine($"Processing PayPal payment: {amount}");
+        }
+    }
+
+    public class PaymentService
+    {
+        private readonly CreditCardProcessor _creditCardProcessor = new CreditCardProcessor(); // ❌ tightly coupled to low-level module
+
+        public void MakePayment(decimal amount)
+        {
+            _creditCardProcessor.Pay(amount); 
+        }
+    }
+}
