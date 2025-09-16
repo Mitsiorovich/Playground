@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace SRPExample
+{
+    public class EmployeeManager
+    {
+        private List<string> employees = new List<string>();
+
+        public void AddEmployee(string name)
+        {
+            employees.Add(name);
+            Console.WriteLine($"Employee {name} added successfully.");
+        }
+
+        public void PrintEmployees()
+        {
+            Console.WriteLine("Employee List:");
+            foreach (var emp in employees)
+            {
+                Console.WriteLine(emp);
+            }
+        }
+
+        public void SaveEmployeesToFile(string filePath)
+        {
+            File.WriteAllLines(filePath, employees);
+            Console.WriteLine($"Employees saved to {filePath}");
+        }
+
+        public void LoadEmployeesFromFile(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                employees = new List<string>(File.ReadAllLines(filePath));
+                Console.WriteLine("Employees loaded from file.");
+            }
+            else
+            {
+                Console.WriteLine("File not found.");
+            }
+        }
+    }
+}
