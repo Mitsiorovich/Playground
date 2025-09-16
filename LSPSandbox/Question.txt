@@ -1,0 +1,31 @@
+namespace LSPExample
+{
+    public class Rectangle
+    {
+        public virtual int Width { get; set; }
+        public virtual int Height { get; set; }
+
+        public int GetArea() => Width * Height;
+    }
+
+    public class Square : Rectangle
+    {
+        public override int Width
+        {
+            set
+            {
+                base.Width = value;
+                base.Height = value; // forces Height to equal Width
+            }
+        }
+
+        public override int Height
+        {
+            set
+            {
+                base.Width = value;  // forces Width to equal Height
+                base.Height = value;
+            }
+        }
+    }
+}
