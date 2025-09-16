@@ -1,0 +1,23 @@
+namespace ISPExample
+{
+    public interface IMachine
+    {
+        void Print(string content);
+        void Scan(string content);
+        void Fax(string content);
+    }
+
+    public class OldPrinter : IMachine
+    {
+        public void Print(string content) => Console.WriteLine("Printing: " + content);
+        public void Scan(string content) => throw new NotImplementedException(); // ❌ can't scan
+        public void Fax(string content) => throw new NotImplementedException();  // ❌ can't fax
+    }
+
+    public class ModernPrinter : IMachine
+    {
+        public void Print(string content) => Console.WriteLine("Printing: " + content);
+        public void Scan(string content) => Console.WriteLine("Scanning: " + content);
+        public void Fax(string content) => Console.WriteLine("Faxing: " + content);
+    }
+}
