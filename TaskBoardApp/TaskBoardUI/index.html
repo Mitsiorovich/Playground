@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trello-like Board</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="functionality.js" defer></script> 
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="logo">🔥 Project Manager</div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Search tasks, projects..." />
+    </div>
+
+    <nav class="header-actions">
+      <button class="btn">🔔</button>
+      <button class="btn">⚙️</button>
+      <button class="btn">Login</button>
+      <button class="btn btn-primary">Logout</button>
+      <span class="avatar user">U</span>
+    </nav>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <ul>
+      <li>🏠 Dashboard</li>
+      <li id="Projects">📂 Projects ▾</li>
+      <li>👥 Team</li>
+      <li>⚙️ Settings</li>
+    </ul>
+  </aside>
+
+  <!-- Board -->
+  <main class="board">
+    <!-- To Do -->
+    <section class="list dropArea">
+      <header class="list-header">
+        <h2>To Do</h2>
+        <button class="add-card">+ Add Card</button>
+      </header>
+      <div class="cards">
+        <article id="dragTest" class="card moveTask" draggable="true">
+          <h3 class="card-title">Design Login Page</h3>
+          <p class="card-desc">Create UI mockups for login and registration.</p>
+          <div class="tags">
+            <span class="tag red">UI</span>
+            <span class="tag yellow">High</span>
+          </div>
+          <div class="card-footer">
+            <span class="avatar">A</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3 class="card-title">Setup Database</h3>
+          <p class="card-desc">Define schema for users and tasks.</p>
+          <div class="tags">
+            <span class="tag orange">Backend</span>
+          </div>
+          <div class="card-footer">
+            <span class="avatar">B</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- In Progress -->
+    <section class="list dropArea">
+      <header class="list-header">
+        <h2>In Progress</h2>
+        <button class="add-card">+ Add Card</button>
+      </header>
+      <div class="cards">
+        <article class="card">
+          <h3 class="card-title">Implement API</h3>
+          <p class="card-desc">Endpoints for creating tasks and assigning users.</p>
+          <div class="tags">
+            <span class="tag pink">API</span>
+          </div>
+          <div class="card-footer">
+            <span class="avatar">C</span>
+            <span class="avatar">A</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Done -->
+    <section class="list dropArea">
+      <header class="list-header">
+        <h2>Done ✅</h2>
+        <button class="add-card">+ Add Card</button>
+      </header>
+      <div class="cards">
+        <article class="card">
+          <h3 class="card-title">Project Setup</h3>
+          <p class="card-desc">Initialized repo and project structure.</p>
+          <div class="tags">
+            <span class="tag peach">Setup</span>
+          </div>
+          <div class="card-footer">
+            <span class="avatar">B</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Add New List -->
+    <section class="list add-list">
+      <button class="add-list-btn">+ Add List</button>
+    </section>
+  </main>
+</body>
+</html>
