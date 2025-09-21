@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sidebar Dropdown Test</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    height: 100vh;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 250px;
+    background-color: #f8f8f8; /* light neutral background */
+    padding: 1rem;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+  }
+
+  .sidebar ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .sidebar li {
+    cursor: pointer;
+    padding: 0.4rem 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.2rem;
+    transition: background 0.2s;
+  }
+
+  /* Hover effect for all items */
+  .sidebar li:hover {
+    background-color: rgba(0,0,0,0.05);
+  }
+
+  /* Levels using indentation and font style */
+  .project-item {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .sprint-item {
+    padding-left: 1rem; /* indent */
+    font-weight: normal;
+    font-size: 0.95rem;
+  }
+
+  .task-item {
+    padding-left: 2rem; /* more indent */
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+
+  /* Hide nested lists initially */
+  .dropdown-list {
+    display: none;
+    padding-left: 0;
+    margin-top: 0.2rem;
+  }
+
+  /* Content area */
+  .content {
+    flex: 1;
+    padding: 2rem;
+    background-color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <ul>
+    <li class="sidebar-dropdown">
+      <span class="dropdown-label">📂 Projects ▾</span>
+      <ul class="dropdown-list">
+        <li class="dropdown-item project-item">TaskBoard API
+          <ul class="dropdown-list sprint-list">
+            <li class="dropdown-item sprint-item">Backlog
+              <ul class="dropdown-list task-list">
+                <li class="dropdown-item task-item">Integrate AutoMapper</li>
+                <li class="dropdown-item task-item">Create API Documentation</li>
+              </ul>
+            </li>
+            <li class="dropdown-item sprint-item">Sprint 1
+              <ul class="dropdown-list task-list">
+                <li class="dropdown-item task-item">Setup Database</li>
+                <li class="dropdown-item task-item">Design Login Page</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown-item project-item">Web Dashboard
+          <ul class="dropdown-list sprint-list">
+            <li class="dropdown-item sprint-item">Backlog
+              <ul class="dropdown-list task-list">
+                <li class="dropdown-item task-item">Set up React App</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</aside>
+
+<div class="content">
+  <h1>Board Area</h1>
+  <p>This is where your task board would be displayed.</p>
+</div>
+
+<script>
+  // Function to toggle a dropdown
+  function setupDropdowns() {
+    const dropdownLabels = document.querySelectorAll('.dropdown-label, .project-item, .sprint-item');
+    dropdownLabels.forEach(label => {
+      label.addEventListener('click', (e) => {
+        e.stopPropagation(); // prevent bubbling
+        const nested = label.querySelector('ul') || label.nextElementSibling;
+        if (nested) {
+          nested.style.display = nested.style.display === 'block' ? 'none' : 'block';
+        }
+      });
+    });
+  }
+
+  setupDropdowns();
+</script>
+
+</body>
+</html>

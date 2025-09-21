@@ -64,7 +64,7 @@ body {
 
 /* Sidebar */
 .sidebar {
-  width: 180px; /* reduced */
+  width: 300px; /* reduced */
   background: #ff6b6b;
   color: white;
   padding-top: 70px;
@@ -78,8 +78,11 @@ body {
   padding: 1rem;
 }
 
-.sidebar li { cursor: pointer; }
-.sidebar li:hover { text-decoration: underline; }
+.sidebar li { 
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 4px;
+ }
 
 /* Board */
 .board {
@@ -90,6 +93,7 @@ body {
   padding: 1rem;
   overflow-x: auto;
   height: calc(100vh - 60px);
+  width: 100%;
 }
 
 /* List */
@@ -213,6 +217,133 @@ body {
   color: #d35400;
 }
 
-.add-list-btn:hover {
-  background: rgba(255,107,107,0.1);
+
+
+/* Hover effect for all items */
+  .add-list-btn:hover {
+   background: rgba(255,107,107,0.1);
+  }
+
+/* Sidebar Base */
+.sidebar {
+  width: 300px;
+  background: #ff6b6b;
+  color: white;
+  padding-top: 70px;
+  font-family: "Segoe UI", Roboto, sans-serif;
 }
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+/* Base style for all li */
+.sidebar li {
+  display: block;           /* makes each li its own box */
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s, text-decoration 0.2s;
+  text-decoration: none;    /* ensure no inherited underline */
+}
+
+/* Hover underline only for the li being hovered */
+.sidebar li:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Nested dropdown lists hidden by default */
+.sidebar li > ul {
+  display: none;
+  padding-left: 1rem;
+  margin-top: 0.2rem;
+}
+
+/* Show only direct children on hover */
+.sidebar li:hover > ul {
+  display: block;
+}
+
+/* Projects Dropdown */
+.sidebar-dropdown {
+  font-weight: bold;
+  position: relative;
+}
+
+/* Arrow after Projects text */
+.sidebar-dropdown::after {
+  content: "▾";
+  float: right;
+  transition: transform 0.2s;
+}
+
+/* Nested dropdown lists (sprints and tasks) hidden initially */
+.sidebar-dropdown ul,
+.project-item ul,
+.sprint-item ul {
+  display: none;
+  padding-left: 0.5rem; /* indentation for hierarchy */
+}
+
+/* Show nested lists on hover of parent */
+.sidebar-dropdown:hover > ul,
+.project-item:hover > ul,
+.sprint-item:hover > ul {
+  display: block;
+}
+
+/* Rotate arrow when open */
+.sidebar-dropdown:hover::after {
+  transform: rotate(180deg);
+}
+
+/* Hierarchy styles */
+.project-item {
+  padding-left: 1rem;
+  font-weight: bold;
+  background-color: #ff6b6b;
+  color: white;
+  margin: 0.25rem 0;
+  border-radius: 4px;
+}
+
+.project-item:hover {
+  color: white;
+  background-color: #ff6b6b;
+
+}
+
+.sprint-item {
+  font-weight: normal;
+  font-size: 0.95rem;
+  background-color: #ff6b6b;
+  color: white;
+  margin: 0.25rem 0;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.sprint-item:hover {
+  color: white;
+  background-color: #fca5a5;
+}
+
+.is-active-tab{
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.is-active-sub-tab{
+  color: white;
+  background-color: #fca5a5;
+}
+
+.is-active-board{
+  color: white;
+  background-color: #fcc5c5;
+}
+
+

@@ -1,45 +1,168 @@
 // Dummy data
 const projects = [
-    {
-      id: 1,
-      name: "TaskBoard API",
-      sprints: [
-        { id: 1, 
-          name: "Backlog",
-          states:[{
-            id : 1,
-            name:"To Do" 
-            },
-            {
-             id : 2,
-             name : "In Progress"
-            }
-          ],
-          tasks: [{
-            id:1,
-            title:"Intergate auto mapper",
-            description:"Make automapper casual",
-            tags:["Back", "High"],
-            state:"To Do",
-            user:"Stelios"
-          }]
-        },
-        { id: 2, name: "Sprint Planning" },
-        { id: 3, name: "Sprint 1" }
-      ]
-    }
-  ];
+  {
+    id: 1,
+    name: "TaskBoard API",
+    sprints: [
+      {
+        id: 1,
+        name: "Backlog",
+        states: [
+          { id: 1, name: "To Do" },
+          { id: 2, name: "In Progress" },
+          { id: 3, name: "Done" }
+        ],
+        tasks: [
+          {
+            id: 1,
+            title: "Integrate AutoMapper",
+            description: "Set up AutoMapper profiles for DTO mapping.",
+            tags: ["Backend", "High"],
+            state: "To Do",
+            user: "Stelios"
+          },
+          {
+            id: 2,
+            title: "Create API Documentation",
+            description: "Document all endpoints with Swagger.",
+            tags: ["Backend", "Medium"],
+            state: "To Do",
+            user: "Maria"
+          }
+        ]
+      },
+      {
+        id: 2,
+        name: "Sprint Planning",
+        states: [
+          { id: 4, name: "To Do" },
+          { id: 5, name: "In Progress" },
+          { id: 6, name: "Done" }
+        ],
+        tasks: [
+          {
+            id: 3,
+            title: "Define Sprint Goals",
+            description: "List all objectives for this sprint.",
+            tags: ["Planning", "High"],
+            state: "In Progress",
+            user: "Stelios"
+          }
+        ]
+      },
+      {
+        id: 3,
+        name: "Sprint 1",
+        states: [
+          { id: 7, name: "To Do" },
+          { id: 8, name: "In Progress" },
+          { id: 9, name: "Done" }
+        ],
+        tasks: [
+          {
+            id: 4,
+            title: "Setup Database",
+            description: "Configure PostgreSQL and initial tables.",
+            tags: ["Backend", "High"],
+            state: "Done",
+            user: "Maria"
+          },
+          {
+            id: 5,
+            title: "Create User Authentication",
+            description: "Implement JWT login/logout.",
+            tags: ["Backend", "High"],
+            state: "In Progress",
+            user: "Stelios"
+          },
+          {
+            id: 6,
+            title: "Design Login Page",
+            description: "Create UI mockups for login and registration.",
+            tags: ["Frontend", "Medium"],
+            state: "To Do",
+            user: "Alex"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: "Web Dashboard",
+    sprints: [
+      {
+        id: 4,
+        name: "Backlog",
+        states: [
+          { id: 10, name: "To Do" },
+          { id: 11, name: "In Progress" },
+          { id: 12, name: "Done" }
+        ],
+        tasks: [
+          {
+            id: 7,
+            title: "Set up React App",
+            description: "Initialize project with Create React App.",
+            tags: ["Frontend", "High"],
+            state: "To Do",
+            user: "Alex"
+          },
+          {
+            id: 8,
+            title: "Create Sidebar Menu",
+            description: "Implement navigation for dashboard pages.",
+            tags: ["Frontend", "Medium"],
+            state: "To Do",
+            user: "Maria"
+          }
+        ]
+      },
+      {
+        id: 5,
+        name: "Sprint 1",
+        states: [
+          { id: 13, name: "To Do" },
+          { id: 14, name: "In Progress" },
+          { id: 15, name: "Done" }
+        ],
+        tasks: [
+          {
+            id: 9,
+            title: "Connect API to Dashboard",
+            description: "Fetch project and task data via Axios.",
+            tags: ["Frontend", "High"],
+            state: "In Progress",
+            user: "Stelios"
+          },
+          {
+            id: 10,
+            title: "Add Drag & Drop",
+            description: "Enable moving tasks between columns.",
+            tags: ["Frontend", "High"],
+            state: "To Do",
+            user: "Alex"
+          }
+        ]
+      }
+    ]
+  }
+];
+
 
   function applyDND(){
     console.log("applying drag n drop");
     const dropAreas = document.getElementsByClassName("dropArea");
     console.log(dropAreas);
   
-    const card = document.querySelector(".moveTask");
+    const cards = document.querySelectorAll(".moveTask");
   
-    card.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData("text/plain", e.target.id);
-    });
+    for (let i= 0; i < cards.length; i++) {
+        cards[i].addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", e.target.id);
+      });
+    }
+    
   
     for (let i = 0; i < dropAreas.length; i++) {
       console.log("assigning a lsitener");
@@ -111,73 +234,98 @@ const projects = [
 
  
   // State for dropdown visibility
-  let projectDropdownVisible = false;
-  let taskDropdownVisible = false;
-  
-  const projectLi = document.querySelector("#Projects");
-  // Select the Projects li
-  //const projectLi = document.querySelector("#Projects");
-  
-  // Create a container for project dropdown
-  const projectListContainer = document.createElement("ul");
-  projectListContainer.style.listStyle = "none";
-  projectListContainer.style.paddingLeft = "1rem";
-  projectListContainer.style.display = "none"; // hidden initially
-  projectLi.appendChild(projectListContainer);
-
+let projectDropdownVisible = false;
+let taskDropdownVisible = false;
   
 
+// === Select the Projects li ===
+const projectLi = document.querySelector("#Projects");
+let activeTAB = null;
+let activeSUBTAB = null;
+let activeBOARD = null;
 
-  // Populate project dropdown
-  projects.forEach(project => {
-    const li = document.createElement("li");
-    li.textContent = project.name;
-    li.style.cursor = "pointer";
-  
-    li.addEventListener("click", (e) => {
-      e.stopPropagation();
-      populateTaskDropdown(project);
-    });
-  
-    projectListContainer.appendChild(li);
-  });
-  
-  // Toggle project dropdown
-  projectLi.addEventListener("click", (e) => {
-    e.stopPropagation();
-    projectDropdownVisible = !projectDropdownVisible;
-    projectListContainer.style.display = projectDropdownVisible ? "block" : "none";
-  });
-  
-  // Function to populate task dropdown
-  function populateTaskDropdown(project) {
-    // Remove old task dropdown if exists
-    const oldTaskList = projectLi.querySelector("ul.task-list");
-    if (oldTaskList) oldTaskList.remove();
-  
-    const taskList = document.createElement("ul");
-    taskList.classList.add("task-list");
-    taskList.style.listStyle = "none";
-    taskList.style.paddingLeft = "1rem";
-    taskList.style.marginTop = "0.2rem";
-  
-    project.sprints.forEach(task => {
-      const li = document.createElement("li");
-      li.textContent = task.name;
-      li.style.cursor = "pointer";
-      li.addEventListener("click", (e) => {
-        e.stopPropagation();
-        loadBoard(task);
-      });
-      taskList.appendChild(li);
-    });
-  
-    projectLi.appendChild(taskList);
+// === Create Project Dropdown Container ===
+const projectListContainer = document.createElement("ul");
+projectListContainer.classList.add("dropdown-list");
+projectLi.appendChild(projectListContainer);
+projectListContainer.style.display = "none"; // hidden initially
+
+// === Toggle Project Dropdown visibility ===
+projectLi.addEventListener("click", () => {
+  // Manage active tab
+  projectLi.classList.add("is-active-tab");
+  if (activeTAB !== null && activeTAB !== projectLi) {
+    activeTAB.classList.remove("is-active-tab");
   }
-  
-  // Close dropdowns if clicked outside
-  document.addEventListener("click", () => {
-    projectDropdownVisible = false;
-    projectListContainer.style.display = "none";
+  activeTAB = projectLi;
+
+  const isHidden = projectListContainer.style.display === "none";
+  projectListContainer.style.display = isHidden ? "block" : "none";
+
+  if (!isHidden) {
+    // Closing Projects dropdown → hide sprint lists
+    const sprintLists = projectListContainer.querySelectorAll("ul");
+    sprintLists.forEach(sprintList => {
+      sprintList.style.display = "none";
+    });
+
+    // Remove all sub-tab active states unless they have an active board inside
+    const activeSubTabs = projectListContainer.querySelectorAll(".is-active-sub-tab");
+    activeSubTabs.forEach(tab => {
+      const hasActiveBoard = tab.querySelector(".is-active-board") !== null;
+      if (!hasActiveBoard) {
+        tab.classList.remove("is-active-sub-tab");
+      }
+    });
+  } else {
+    // Re-opening Projects dropdown → expand the project that has an active board
+    if (activeBOARD) {
+      const parentProject = activeBOARD.closest(".project-item");
+      const sprintList = parentProject.querySelector("ul");
+      parentProject.classList.add("is-active-sub-tab");
+      sprintList.style.display = "block";
+    }
+  }
+});
+
+// === Populate Projects Dropdown ===
+projects.forEach(project => {
+  const projItem = document.createElement("li");
+  projItem.textContent = project.name;
+  projItem.classList.add("project-item");
+
+  // Create Sprint container for this project
+  const sprintList = document.createElement("ul");
+  projItem.appendChild(sprintList);
+  sprintList.style.display = "none"; // hidden initially
+
+  // Toggle Sprint visibility
+  projItem.addEventListener("click", (e) => {
+    projItem.classList.toggle("is-active-sub-tab");
+    e.stopPropagation(); // prevent parent toggles
+    sprintList.style.display = sprintList.style.display === "none" ? "block" : "none";
   });
-  
+
+  // Populate Sprints
+  project.sprints?.forEach(sprint => {
+    const sprintItem = document.createElement("li");
+    sprintItem.textContent = sprint.name;
+    sprintItem.classList.add("sprint-item");
+
+    // Click listener to load board
+    sprintItem.addEventListener("click", (e) => {
+      sprintItem.classList.add("is-active-board");
+      if (activeBOARD && activeBOARD !== sprintItem) {
+        activeBOARD.classList.remove("is-active-board");
+      }
+      activeBOARD = sprintItem;
+
+      e.stopPropagation(); // prevent bubbling
+      loadBoard(sprint);   // <-- load this sprint's board
+    });
+
+    sprintList.appendChild(sprintItem);
+  });
+
+  projectListContainer.appendChild(projItem);
+});
