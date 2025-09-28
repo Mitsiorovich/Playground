@@ -1,7 +1,9 @@
 ﻿
+using TaskBoard.Domain.Models;
+
 namespace TaskBoard.Domain.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User>
     {
     }
 }

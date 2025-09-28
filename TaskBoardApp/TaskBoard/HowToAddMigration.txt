@@ -1,0 +1,26 @@
+This is how you add based on the folder structure
+dotnet ef migrations add InitialSync -p ../TaskBoard.Infrastructure/TaskBoard.Infrastructure.csproj -s Taskboard.API.csproj
+
+This is how you update database 
+dotnet ef database update -p ../TaskBoard.Infrastructure/TaskBoard.Infrastructure.csproj -s Taskboard.API.csproj
+
+Key points:
+
+-p points to the infrastructure project (where your DbContext is).
+
+-s points to the startup project (TaskBoard.API).
+
+Use relative paths because you’re running inside TaskBoardApp/TaskBoard.
+
+
+This is how you roll-back 1 migration ( First you update to the previous one InitialCreate) 
+
+dotnet ef database update InitialCreate -p ../TaskBoard.Infrastructure/TaskBoard.Infrastructure.csproj -s Taskboard.API.csproj
+
+Then you remove the latest one 
+
+dotnet ef database remove -p ../TaskBoard.Infrastructure/TaskBoard.Infrastructure.csproj -s Taskboard.API.csproj
+or for older cli delete SecondMigrationName.cs , SecondMigrationName.Designer.cs
+if it was first migration ever also delete the snapshot
+
+

@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TaskBoard.Domain.Entities;
 
 namespace TaskBoard.Domain.Models
 {
-    public class Project
+    public class Project : Entity
     {
-        public int Id { get; set; }
-
         public string Name { get; set; } = string.Empty;
 
-        public int UserId { get; set; }
+        public Guid? UserId { get; set; }
+        public User? User { get; set; }
 
-        public User User { get; set; } = null!;
-
-        public ICollection<TaskItem> Tasks { get; set; } = new List<TaskItem>();
+        public ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
     }
 }

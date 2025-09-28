@@ -2,7 +2,7 @@
 
 namespace TaskBoard.Domain.Interfaces
 {
-    public interface IProjectRepository : IRepository<Project>
+    public interface ITaskItemRepository : IRepository<TaskItem>
     {
     }
 }

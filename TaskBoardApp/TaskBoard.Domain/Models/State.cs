@@ -2,11 +2,8 @@
 
 namespace TaskBoard.Domain.Models
 {
-    public class User : Entity
+    public class State : Entity
     {
-
         public string Name { get; set; } = string.Empty;
-
-        ICollection<Project> Projects { get; set; } = new List<Project>();
     }
 }
