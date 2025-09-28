@@ -73,3 +73,6 @@ publish/
 *.coverage
 *.coveragexml
 TestResults/
+
+# Local environment variables
+.env
